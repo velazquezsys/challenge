@@ -15,12 +15,12 @@ public class PositionMdl {
 
     @NotNull(message = "{position.vehicleId.notNull}")
     @Positive
-    Long vehicleId;
+    private Long vehicleId;
 
     @NotNull(message = "{position.latitude.notNull}")
-    Long latitude;
+    private Long latitude;
 
     @NotNull(message = "{position.longitude.notNull}")
-    Long longitude;
+    private Long longitude;
 
 }

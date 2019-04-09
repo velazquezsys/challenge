@@ -1,12 +1,12 @@
 package com.gbm.challenge.controller;
 
+import com.gbm.challenge.domain.Position;
 import com.gbm.challenge.model.PositionMdl;
 import com.gbm.challenge.service.PositionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,10 +26,22 @@ public class PositionController {
 
     private final PositionService positionService;
 
-    @PostMapping("position")
-    public void savePosition(@Valid @RequestBody PositionMdl positionMdl) {
+    @PostMapping("/position")
+    public ResponseEntity<String> savePosition(@Valid @RequestBody PositionMdl positionMdl) {
 
-        positionService.savePosition(positionMdl);
+        String result;
+        result = positionService.savePosition(positionMdl);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/position")
+    public ResponseEntity<Position> savePosition(@RequestParam Long vehicle) {
+
+        Position result;
+        result = positionService.getPosition(vehicle);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 

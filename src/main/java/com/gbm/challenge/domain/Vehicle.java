@@ -2,7 +2,9 @@ package com.gbm.challenge.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -16,7 +18,6 @@ import java.io.Serializable;
 public class Vehicle implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 }

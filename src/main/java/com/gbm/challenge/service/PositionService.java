@@ -1,5 +1,6 @@
 package com.gbm.challenge.service;
 
+import com.gbm.challenge.domain.Position;
 import com.gbm.challenge.model.PositionMdl;
 
 /**
@@ -8,6 +9,8 @@ import com.gbm.challenge.model.PositionMdl;
  */
 public interface PositionService {
 
-    void savePosition(PositionMdl positionMdl);
+    String savePosition(PositionMdl positionMdl);
+
+    Position getPosition(Long vehicleId);
 
 }
