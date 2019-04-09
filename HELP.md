@@ -24,8 +24,8 @@ The project loads the initialization script (resources/data.sql) which contains 
 | ------ | ------| ------ |
 |POST | /gbm/api/v1/position|application/json|
 
-#####Body
-```js
+##### Body
+```json
 {
 	"vehicleId":1,
 	"latitude": 19.3635374,
@@ -44,7 +44,7 @@ localhost:80/gbm/api/v1/position?vehicle=2
 #### Get the position history by vehicle
 | method | path| param |
 | ------ | ------| ------ |
-|GET | /gbm/api/v1/position|vehicle|
+|GET | /gbm/api/v1/position/history|vehicle|
 
 ##### Example
 
@@ -52,8 +52,8 @@ localhost:80/gbm/api/v1/position/history?vehicle=2
 
 #### Receive update position
 localhost:80/gbm/api/v1/consumer/position
-#####Body
-```js
+##### Body
+```json
 {
 	"vehicleId":1,
 	"latitude": 19.3635374,
