@@ -6,6 +6,7 @@ import com.gbm.challenge.domain.repository.PositionRepository;
 import com.gbm.challenge.domain.repository.VehicleRepository;
 import com.gbm.challenge.model.PositionMdl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * @email <velazquez.sys at gmail.com>
  */
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PositionServiceImpl implements PositionService {
@@ -33,6 +35,8 @@ public class PositionServiceImpl implements PositionService {
 
         if (vehicle.isPresent()) {
 
+            log.debug("vehicle found, saving new position");
+
             position = new Position();
             position.setLatitude(positionMdl.getLatitude());
             position.setLongitude(positionMdl.getLatitude());
@@ -42,6 +46,7 @@ public class PositionServiceImpl implements PositionService {
 
             result = "position of the vehicle was saved correctly";
         } else {
+            log.debug("vehicle not found id:{}", positionMdl.getVehicleId());
             result = "vehicle not found";
         }
 
@@ -53,6 +58,8 @@ public class PositionServiceImpl implements PositionService {
 
         Position position;
         Optional<Position> optionalPosition;
+
+        log.debug("consulting vehicle: {} position", vehicleId);
 
         optionalPosition = positionRepository.findFirstByVehicleIdOrderByIdDesc(vehicleId);
         position = optionalPosition.orElseGet(Position::new);

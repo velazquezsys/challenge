@@ -4,6 +4,7 @@ import com.gbm.challenge.domain.Position;
 import com.gbm.challenge.model.PositionMdl;
 import com.gbm.challenge.service.PositionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import static com.gbm.challenge.constant.EndPoint.VERSION;
  * @email <velazquez.sys at gmail.com>
  */
 
-
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(API + VERSION)
@@ -30,6 +31,9 @@ public class PositionController {
     public ResponseEntity<String> savePosition(@Valid @RequestBody PositionMdl positionMdl) {
 
         String result;
+
+        log.debug("saving new vehicle position");
+
         result = positionService.savePosition(positionMdl);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -39,6 +43,9 @@ public class PositionController {
     public ResponseEntity<Position> savePosition(@RequestParam Long vehicle) {
 
         Position result;
+
+        log.debug("consulting vehicle position");
+
         result = positionService.getPosition(vehicle);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
