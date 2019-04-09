@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,6 +24,7 @@ public class PositionServiceImpl implements PositionService {
 
     private final VehicleRepository vehicleRepository;
     private final PositionRepository positionRepository;
+    private final ConsumerService consumerService;
 
     @Override
     public String savePosition(PositionMdl positionMdl) {
@@ -39,10 +41,14 @@ public class PositionServiceImpl implements PositionService {
 
             position = new Position();
             position.setLatitude(positionMdl.getLatitude());
-            position.setLongitude(positionMdl.getLatitude());
+            position.setLongitude(positionMdl.getLongitude());
             position.setVehicle(vehicle.get());
 
             positionRepository.save(position);
+
+            log.debug("sending real-time notification of vehicle position update ");
+            //Async method
+            consumerService.processMessage(positionMdl);
 
             result = "position of the vehicle was saved correctly";
         } else {
@@ -65,5 +71,13 @@ public class PositionServiceImpl implements PositionService {
         position = optionalPosition.orElseGet(Position::new);
 
         return position;
+    }
+
+    @Override
+    public List<Position> getHistoricalPosition(Long vehicleId) {
+
+        log.debug("consulting historical vehicle: {} position", vehicleId);
+
+        return positionRepository.findAllByVehicleId(vehicleId);
     }
 }

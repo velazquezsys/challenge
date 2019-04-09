@@ -2,3 +2,10 @@ server:
   port: 80
   servlet:
     context-path: /gbm
+
+logging:
+  level:
+    com.gbm.challenge: DEBUG
+
+endpoint:
+  consumer: http://127.0.0.1:80/gbm/api/v1/consumer/position

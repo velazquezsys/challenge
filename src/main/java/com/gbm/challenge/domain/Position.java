@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -28,6 +29,9 @@ public class Position implements Serializable {
     private Long latitude;
 
     private Long longitude;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Date update;
 
     @JsonIgnore
     @ManyToOne

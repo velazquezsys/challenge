@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static com.gbm.challenge.constant.EndPoint.API;
 import static com.gbm.challenge.constant.EndPoint.VERSION;
@@ -30,26 +31,38 @@ public class PositionController {
     @PostMapping("/position")
     public ResponseEntity<String> savePosition(@Valid @RequestBody PositionMdl positionMdl) {
 
-        String result;
+        String response;
 
         log.debug("saving new vehicle position");
 
-        result = positionService.savePosition(positionMdl);
+        response = positionService.savePosition(positionMdl);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/position")
     public ResponseEntity<Position> savePosition(@RequestParam Long vehicle) {
 
-        Position result;
+        Position response;
 
         log.debug("consulting vehicle position");
 
-        result = positionService.getPosition(vehicle);
+        response = positionService.getPosition(vehicle);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
+    @GetMapping("/position/history")
+    public ResponseEntity<List<Position>> getVehicleHistorical(@RequestParam Long vehicle) {
+
+        List<Position> response;
+
+        log.debug("consulting historical vehicle position");
+
+        response = positionService.getHistoricalPosition(vehicle);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }
